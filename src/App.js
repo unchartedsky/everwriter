@@ -15,11 +15,11 @@ class App extends Component {
             </Col>
           </Row>
           <Row>
-            <Col sm={2}/>
-            <Col sm={8}>
+            <Col sm={0.5}/>
+            <Col sm={11}>
               <Editor placeholder={'Write something...'}/>
             </Col>
-            <Col sm={2}/>
+            <Col sm={0.5}/>
           </Row>
         </Grid>
     );

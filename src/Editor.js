@@ -19,7 +19,7 @@ class Editor extends React.Component {
     render () {
         return (
             <ReactQuill
-                theme={'snow'}
+                theme={'bubble'}
                 onChange={this.handleChange}
                 value={this.state.editorHtml}
                 modules={Editor.modules}
@@ -36,12 +36,9 @@ class Editor extends React.Component {
  */
 Editor.modules = {
     toolbar: [
-        [{ 'header': [1, 2, false] }, { 'font': [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{'list': 'ordered'}, {'list': 'bullet'},
-            {'indent': '-1'}, {'indent': '+1'}],
-        ['link', 'image'],
-        ['clean']
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        ['image', 'code-block']
     ]
 }
 /*
