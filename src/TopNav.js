@@ -15,7 +15,7 @@ class TopNav extends Component {
                         <a href="#">Everwriter</a>
                     </Navbar.Brand>
                 </Navbar.Header>
-                <Nav pullRight="true">
+                <Nav pullRight>
                     <NavItem eventKey={1} href="#">Sync</NavItem>
                     <NavDropdown eventKey={3} title="Profile" id="basic-nav-dropdown">
                         <MenuItem eventKey={3.1}><FontAwesome name="cog"/> Settings</MenuItem>
