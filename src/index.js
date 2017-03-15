@@ -1,14 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
+import App from "./App";
+import Store from "./store";
+import "./index.css";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import 'font-awesome/css/font-awesome.css';
-// import 'react-quill/dist/quill.snow.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap-theme.css";
+import "font-awesome/css/font-awesome.css";
+
+const StoreInstance = Store();
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <Provider store={StoreInstance}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
 );
