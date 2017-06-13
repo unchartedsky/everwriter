@@ -9,7 +9,7 @@ import "babel-polyfill";
 import NotificationsSystem, {addNotification as notify} from "reapop";
 import theme from "reapop-theme-wybo";
 //endregion
-import MediumEditor from "./MediumEditor";
+import MediumEditor from "./components/editor/MediumEditor";
 
 import "./App.css";
 
