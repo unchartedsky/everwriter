@@ -11,7 +11,7 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-fontawesome": "^1.6.1",
-    "react-quill": "1.0.0-rc.2",
+    "medium-draft": "0.5.2",
     "react-redux": "^5.0.5",
     "reapop": "^1.1.1",
     "reapop-theme-bootstrap": "^0.3.0",
