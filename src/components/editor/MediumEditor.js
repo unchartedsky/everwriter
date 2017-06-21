@@ -1,115 +1,97 @@
 /**
  * Created by tywin on 23/02/2017.
  */
-import React from "react";
 import {connect} from "react-redux";
 import {saving} from "../../actions/index";
 
+import React, { Component } from 'react';
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
+import createHashtagPlugin from 'draft-js-hashtag-plugin';
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
+import createInlineToolbarPlugin, { Separator } from 'draft-js-inline-toolbar-plugin';
 import {
-    Editor,
-    createEditorState,
-    ImageSideButton,
-    Block,
-    // AtomicBlock,
-    rendererFn,
-} from 'medium-draft';
-
-import EmbedSideButton from "./EmbedSideButton";
-import AtomicEmbedComponent from "./AtomicEmbedComponent";
-
-const AtomicBlock = (props) => {
-    const { blockProps, block } = props;
-    const content = blockProps.getEditorState().getCurrentContent();
-    const entity = content.getEntity(block.getEntityAt(0));
-    const data = entity.getData();
-    const type = entity.getType();
-    if (blockProps.components[type]) {
-        const AtComponent = blockProps.components[type];
-        return (
-            <div className={`md-block-atomic-wrapper md-block-atomic-wrapper-${type}`}>
-                <AtComponent data={data} />
-            </div>
-        );
-    }
-    return <p>Block of type <b>{type}</b> is not supported.</p>;
-};
+    ItalicButton,
+    BoldButton,
+    UnderlineButton,
+    CodeButton,
+    HeadlineOneButton,
+    HeadlineTwoButton,
+    HeadlineThreeButton,
+    UnorderedListButton,
+    OrderedListButton,
+    BlockquoteButton,
+    CodeBlockButton,
+} from 'draft-js-buttons'; // eslint-disable-line import/no-unresolved
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
 
+import 'draft-js-hashtag-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
+import 'draft-js-inline-toolbar-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
+import editorStyles from './editorStyles.css';
+// import buttonStyles from './buttonStyles.css';
+// import toolbarStyles from './toolbarStyles.css';
 
-class MediumEditor extends React.Component {
-    constructor(props) {
-        super(props);
+const hashtagPlugin = createHashtagPlugin();
+const linkifyPlugin = createLinkifyPlugin();
 
-        this.state = {
-            editorState: createEditorState(), // for empty content
-        };
+const inlineToolbarPlugin = createInlineToolbarPlugin({
+    // theme: { buttonStyles: buttonStyles, toolbarStyles: toolbarStyles },
+    structure: [
+        BoldButton,
+        ItalicButton,
+        UnderlineButton,
+        CodeButton,
+        Separator,
+        HeadlineOneButton,
+        HeadlineTwoButton,
+        HeadlineThreeButton,
+        UnorderedListButton,
+        OrderedListButton,
+        BlockquoteButton,
+        CodeBlockButton,
+    ]
+});
+const { InlineToolbar } = inlineToolbarPlugin;
 
-        /*
-         this.state = {
-         editorState: createEditorState(data), // with content
-         };
-         */
+const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 
-        this.onChange = (editorState) => {
-            this.setState({ editorState });
-        };
+const plugins = [
+    hashtagPlugin,
+    linkifyPlugin,
+    inlineToolbarPlugin,
+    markdownShortcutsPlugin,
+];
 
-        this.sideButtons = [{
-            title: 'Image',
-            component: ImageSideButton,
-        }, {
-            title: 'Embed',
-            component: EmbedSideButton,
-        }] ;
-
-        // this.exporter = setRenderOptions({
-        //     styleToHTML,
-        //     blockToHTML: newBlockToHTML,
-        //     entityToHTML: newEntityToHTML,
-        // });
-
-        this.getEditorState = () => this.state.editorState;
+const text = 'In this editor a toolbar shows up once you select part of the text …';
 
 
-    }
+class MediumEditor extends Component {
 
-    rendererFn(setEditorState, getEditorState) {
-        const atomicRenderers = {
-            embed: AtomicEmbedComponent,
-        };
-        const rFnOld = rendererFn(setEditorState, getEditorState);
-        const rFnNew = (contentBlock) => {
-            const type = contentBlock.getType();
-            switch(type) {
-                case Block.ATOMIC:
-                    return {
-                        component: AtomicBlock,
-                        editable: false,
-                        props: {
-                            components: atomicRenderers,
-                            getEditorState,
-                        },
-                    };
-                default: return rFnOld(contentBlock);
-            }
-        };
-        return rFnNew;
-    }
+    state = {
+        editorState: createEditorStateWithText(text),
+    };
 
-    componentDidMount() {
-        this.refs.editor.focus();
-    }
+    onChange = (editorState) => {
+        this.setState({
+            editorState,
+        });
+    };
+
+    focus = () => {
+        this.editor.focus();
+    };
 
     render() {
-        const { editorState } = this.state;
         return (
-            <Editor
-                ref="editor"
-                editorState={editorState}
-                onChange={this.onChange}
-                sideButtons={this.sideButtons}
-                rendererFn={this.rendererFn}
-            />
+            <div className={editorStyles.editor} onClick={this.focus}>
+                <Editor
+                    editorState={this.state.editorState}
+                    onChange={this.onChange}
+                    plugins={plugins}
+                    ref={(element) => { this.editor = element; }}
+                />
+                <InlineToolbar />
+            </div>
         );
     }
 }
