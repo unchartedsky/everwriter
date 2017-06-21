@@ -22,6 +22,7 @@ import {
     BlockquoteButton,
     CodeBlockButton,
 } from 'draft-js-buttons'; // eslint-disable-line import/no-unresolved
+import createEmojiPlugin from 'draft-js-emoji-plugin'; // eslint-disable-line import/no-unresolved
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
 
@@ -30,6 +31,7 @@ import 'draft-js-inline-toolbar-plugin/lib/plugin.css'; // eslint-disable-line i
 import editorStyles from './editorStyles.css';
 // import buttonStyles from './buttonStyles.css';
 // import toolbarStyles from './toolbarStyles.css';
+import 'draft-js-emoji-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
 
 const hashtagPlugin = createHashtagPlugin();
 const linkifyPlugin = createLinkifyPlugin();
@@ -53,6 +55,11 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const { InlineToolbar } = inlineToolbarPlugin;
 
+const emojiPlugin = createEmojiPlugin({
+    allowImageCache: true
+});
+const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+
 const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 
 const plugins = [
@@ -60,6 +67,7 @@ const plugins = [
     linkifyPlugin,
     inlineToolbarPlugin,
     markdownShortcutsPlugin,
+    emojiPlugin,
 ];
 
 const text = 'In this editor a toolbar shows up once you select part of the text …';
@@ -83,14 +91,17 @@ class MediumEditor extends Component {
 
     render() {
         return (
-            <div className={editorStyles.editor} onClick={this.focus}>
-                <Editor
-                    editorState={this.state.editorState}
-                    onChange={this.onChange}
-                    plugins={plugins}
-                    ref={(element) => { this.editor = element; }}
-                />
-                <InlineToolbar />
+            <div>
+                <div className={editorStyles.editor} onClick={this.focus}>
+                    <Editor
+                        editorState={this.state.editorState}
+                        onChange={this.onChange}
+                        plugins={plugins}
+                        ref={(element) => { this.editor = element; }}
+                    />
+                    <InlineToolbar />
+                    <EmojiSuggestions />
+                </div>
             </div>
         );
     }

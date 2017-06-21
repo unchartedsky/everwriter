@@ -10,6 +10,7 @@
     "draft-js-linkify-plugin": "^2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins-editor": "^2.0.0-rc2",
+    "draft-js-emoji-plugin": "^2.0.0-rc2",
     "font-awesome": "^4.7.0",
     "object-assign": "^4.1.1",
     "react": "^15.5.4",
