@@ -1,0 +1,22 @@
+sudo: required
+
+language: node_js
+
+node_js:
+  - "node"
+  - "7"
+  - "8"
+
+services:
+  - docker
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+script:
+  - yarn build
+
+
+

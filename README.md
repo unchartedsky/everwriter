@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/UnchartedSky/everwriter.svg?token=265AAhxHviCMV4xC9qkK&branch=master)](https://travis-ci.com/UnchartedSky/everwriter)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

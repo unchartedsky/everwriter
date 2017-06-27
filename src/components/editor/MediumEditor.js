@@ -1,9 +1,6 @@
 /**
  * Created by tywin on 23/02/2017.
  */
-import {connect} from "react-redux";
-import {saving} from "../../actions/index";
-
 import React, { Component } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
@@ -58,7 +55,7 @@ const { InlineToolbar } = inlineToolbarPlugin;
 const emojiPlugin = createEmojiPlugin({
     allowImageCache: true
 });
-const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const { EmojiSuggestions } = emojiPlugin;
 
 const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 

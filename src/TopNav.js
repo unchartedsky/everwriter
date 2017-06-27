@@ -1,6 +1,7 @@
 /**
  * Created by tywin on 22/02/2017.
  */
+/* eslint jsx-a11y/href-no-hash: 0 */
 import React, {Component} from "react";
 import "./App.css";
 import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
