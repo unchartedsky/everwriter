@@ -9,7 +9,7 @@ import "babel-polyfill";
 import NotificationsSystem, {addNotification as notify} from "reapop";
 import theme from "reapop-theme-wybo";
 //endregion
-import Editor from "./Editor";
+import MediumEditor from "./components/editor/MediumEditor";
 
 import "./App.css";
 
@@ -48,7 +48,7 @@ class App extends Component {
                 <Row>
                     <Col sm={0.5}/>
                     <Col sm={11}>
-                        <Editor placeholder={'Write something...'}/>
+                        <MediumEditor placeholder={'Write something...'}/>
                     </Col>
                     <Col sm={0.5}/>
                 </Row>
