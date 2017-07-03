@@ -13,7 +13,7 @@ import MediumEditor from './components/editor/MediumEditor';
 
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
   componentDidUpdate() {
     const { notify } = this.props;
 

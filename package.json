@@ -12,8 +12,8 @@
     "draft-js-linkify-plugin": "^2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins-editor": "^2.0.0-rc2",
+    "enzyme": "^2.9.1",
     "font-awesome": "^4.7.0",
-    "gh-pages": "^1.0.0",
     "husky": "^0.14.2",
     "lint-staged": "^4.0.0",
     "object-assign": "^4.1.1",
@@ -22,6 +22,7 @@
     "react-dom": "^15.5.4",
     "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.5",
+    "react-test-renderer": "^15.6.1",
     "reapop": "^1.1.1",
     "reapop-theme-bootstrap": "^0.3.0",
     "reapop-theme-wybo": "^0.4.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "babel-polyfill": "^6.23.0",
+    "gh-pages": "^1.0.0",
     "prettier": "^1.5.2",
     "react-scripts": "1.0.10",
     "redux-immutable-state-invariant": "^2.0.0"
@@ -38,7 +40,8 @@
     "src/**/*.{js,jsx,json,css}": [
       "prettier --single-quote --write",
       "git add"
-    ]},
+    ]
+  },
   "scripts": {
     "precommit": "lint-staged",
     "predeploy": "yarn build",
