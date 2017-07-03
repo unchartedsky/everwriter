@@ -1,17 +1,19 @@
 {
   "name": "everwriter",
+  "homepage": "https://unchartedsky.github.io/everwriter",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "bootstrap": "3",
     "draft-js": "^0.10.1",
+    "draft-js-emoji-plugin": "^2.0.0-rc2",
     "draft-js-hashtag-plugin": "^2.0.0-rc2",
     "draft-js-inline-toolbar-plugin": "^2.0.0-rc2",
     "draft-js-linkify-plugin": "^2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins-editor": "^2.0.0-rc2",
-    "draft-js-emoji-plugin": "^2.0.0-rc2",
     "font-awesome": "^4.7.0",
+    "gh-pages": "^1.0.0",
     "object-assign": "^4.1.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
@@ -30,6 +32,8 @@
     "redux-immutable-state-invariant": "^2.0.0"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
