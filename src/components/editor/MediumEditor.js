@@ -5,23 +5,24 @@ import React, { Component } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
-import createInlineToolbarPlugin, { Separator } from 'draft-js-inline-toolbar-plugin';
+import createInlineToolbarPlugin, {
+  Separator
+} from 'draft-js-inline-toolbar-plugin';
 import {
-    ItalicButton,
-    BoldButton,
-    UnderlineButton,
-    CodeButton,
-    HeadlineOneButton,
-    HeadlineTwoButton,
-    HeadlineThreeButton,
-    UnorderedListButton,
-    OrderedListButton,
-    BlockquoteButton,
-    CodeBlockButton,
+  ItalicButton,
+  BoldButton,
+  UnderlineButton,
+  CodeButton,
+  HeadlineOneButton,
+  HeadlineTwoButton,
+  HeadlineThreeButton,
+  UnorderedListButton,
+  OrderedListButton,
+  BlockquoteButton,
+  CodeBlockButton
 } from 'draft-js-buttons'; // eslint-disable-line import/no-unresolved
 import createEmojiPlugin from 'draft-js-emoji-plugin'; // eslint-disable-line import/no-unresolved
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-
 
 import 'draft-js-hashtag-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
@@ -34,74 +35,75 @@ const hashtagPlugin = createHashtagPlugin();
 const linkifyPlugin = createLinkifyPlugin();
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
-    // theme: { buttonStyles: buttonStyles, toolbarStyles: toolbarStyles },
-    structure: [
-        BoldButton,
-        ItalicButton,
-        UnderlineButton,
-        CodeButton,
-        Separator,
-        HeadlineOneButton,
-        HeadlineTwoButton,
-        HeadlineThreeButton,
-        UnorderedListButton,
-        OrderedListButton,
-        BlockquoteButton,
-        CodeBlockButton,
-    ]
+  // theme: { buttonStyles: buttonStyles, toolbarStyles: toolbarStyles },
+  structure: [
+    BoldButton,
+    ItalicButton,
+    UnderlineButton,
+    CodeButton,
+    Separator,
+    HeadlineOneButton,
+    HeadlineTwoButton,
+    HeadlineThreeButton,
+    UnorderedListButton,
+    OrderedListButton,
+    BlockquoteButton,
+    CodeBlockButton
+  ]
 });
 const { InlineToolbar } = inlineToolbarPlugin;
 
 const emojiPlugin = createEmojiPlugin({
-    allowImageCache: true
+  allowImageCache: true
 });
 const { EmojiSuggestions } = emojiPlugin;
 
 const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 
 const plugins = [
-    hashtagPlugin,
-    linkifyPlugin,
-    inlineToolbarPlugin,
-    markdownShortcutsPlugin,
-    emojiPlugin,
+  hashtagPlugin,
+  linkifyPlugin,
+  inlineToolbarPlugin,
+  markdownShortcutsPlugin,
+  emojiPlugin
 ];
 
-const text = 'In this editor a toolbar shows up once you select part of the text …';
-
+const text =
+  'In this editor a toolbar shows up once you select part of the text …';
 
 class MediumEditor extends Component {
+  state = {
+    editorState: createEditorStateWithText(text)
+  };
 
-    state = {
-        editorState: createEditorStateWithText(text),
-    };
+  onChange = editorState => {
+    this.setState({
+      editorState
+    });
+  };
 
-    onChange = (editorState) => {
-        this.setState({
-            editorState,
-        });
-    };
+  focus = () => {
+    this.editor.focus();
+  };
 
-    focus = () => {
-        this.editor.focus();
-    };
-
-    render() {
-        return (
-            <div>
-                <div className={editorStyles.editor} onClick={this.focus}>
-                    <Editor
-                        editorState={this.state.editorState}
-                        onChange={this.onChange}
-                        plugins={plugins}
-                        ref={(element) => { this.editor = element; }}
-                    />
-                    <InlineToolbar />
-                    <EmojiSuggestions />
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div className={editorStyles.editor} onClick={this.focus}>
+          <Editor
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+            plugins={plugins}
+            ref={element => {
+              this.editor = element;
+            }}
+          />
+          <InlineToolbar />
+          <EmojiSuggestions />
+        </div>
+      </div>
+    );
+  }
 }
 
 // MediumEditor = connect(undefined, mapDispatchToProps)(MediumEditor);
