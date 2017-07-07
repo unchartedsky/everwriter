@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/UnchartedSky/everwriter.svg?token=265AAhxHviCMV4xC9qkK&branch=master)](https://travis-ci.com/UnchartedSky/everwriter)
+[![Build Status](https://travis-ci.org/UnchartedSky/everwriter.svg?branch=master)](https://travis-ci.org/UnchartedSky/everwriter)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
