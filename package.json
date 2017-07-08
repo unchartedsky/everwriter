@@ -14,8 +14,6 @@
     "draft-js-plugins-editor": "^2.0.0-rc2",
     "enzyme": "^2.9.1",
     "font-awesome": "^4.7.0",
-    "husky": "^0.14.2",
-    "lint-staged": "^4.0.0",
     "object-assign": "^4.1.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
@@ -32,6 +30,8 @@
   "devDependencies": {
     "babel-polyfill": "^6.23.0",
     "gh-pages": "^1.0.0",
+    "husky": "^0.14.2",
+    "lint-staged": "^4.0.0",
     "prettier": "^1.5.2",
     "react-scripts": "1.0.10",
     "redux-immutable-state-invariant": "^2.0.0"
