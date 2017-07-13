@@ -5,7 +5,6 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3",
-    "keycode-js": "^0.0.4",
     "draft-js": "^0.10.1",
     "draft-js-block-breakout-plugin": "^2.0.1",
     "draft-js-emoji-plugin": "^2.0.0-rc2",
@@ -15,6 +14,7 @@
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins-editor": "^2.0.0-rc2",
     "font-awesome": "^4.7.0",
+    "keycode-js": "^0.0.4",
     "object-assign": "^4.1.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "babel-polyfill": "^6.23.0",
+    "codecov": "^2.2.0",
     "enzyme": "^2.9.1",
     "flow-bin": "^0.49.1",
     "gh-pages": "^1.0.0",
