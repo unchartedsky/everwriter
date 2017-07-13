@@ -14,10 +14,10 @@ describe('Editor', function() {
   it('blockquote', () => {
     const text = 'Start now'
     var editorState = createEditorStateWithText(text)
-    const wrapper = shallow(<MediumEditor editorState={editorState} />)
+    const wrapper = shallow(<MediumEditor editorState={editorState}/>)
   })
 
-  it('dispatch COMMAND_SAVE when command+s key pressesd', function() {
+  it('dispatch COMMAND_SAVE when command+s key is pressed', function() {
     var onSave = jest.fn()
 
     const text = 'Start now'
