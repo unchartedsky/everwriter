@@ -9,6 +9,10 @@ indent_size=4
 indent_style=space
 indent_size=2
 
+[{*.js,*.jsx}]
+indent_style=space
+indent_size=2
+
 [{jshint.json,*.jshintrc}]
 indent_style=space
 indent_size=2

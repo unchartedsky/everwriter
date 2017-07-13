@@ -1,38 +1,45 @@
 /**
  * Created by tywin on 23/02/2017.
  */
-import React, { Component } from 'react';
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
-import createHashtagPlugin from 'draft-js-hashtag-plugin';
-import createLinkifyPlugin from 'draft-js-linkify-plugin';
+
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js'
+import { connect } from 'react-redux'
+import { saving } from '../../actions'
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor' // eslint-disable-line import/no-unresolved
+import createHashtagPlugin from 'draft-js-hashtag-plugin'
+import createLinkifyPlugin from 'draft-js-linkify-plugin'
 import createInlineToolbarPlugin, {
-  Separator
-} from 'draft-js-inline-toolbar-plugin';
+  Separator,
+} from 'draft-js-inline-toolbar-plugin'
 import {
-  ItalicButton,
+  BlockquoteButton,
   BoldButton,
-  UnderlineButton,
+  CodeBlockButton,
   CodeButton,
   HeadlineOneButton,
-  HeadlineTwoButton,
   HeadlineThreeButton,
-  UnorderedListButton,
+  HeadlineTwoButton,
+  ItalicButton,
   OrderedListButton,
-  BlockquoteButton,
-  CodeBlockButton
-} from 'draft-js-buttons'; // eslint-disable-line import/no-unresolved
-import createEmojiPlugin from 'draft-js-emoji-plugin'; // eslint-disable-line import/no-unresolved
-import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+  UnderlineButton,
+  UnorderedListButton,
+} from 'draft-js-buttons' // eslint-disable-line import/no-unresolved
+// eslint-disable-line import/no-unresolved
 
-import 'draft-js-hashtag-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
-import editorStyles from './editorStyles.css';
+import 'draft-js-emoji-plugin/lib/plugin.css' // eslint-disable-line import/no-unresolved
+import createEmojiPlugin from 'draft-js-emoji-plugin' // eslint-disable-line import/no-unresolved
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin'
+
+import 'draft-js-hashtag-plugin/lib/plugin.css' // eslint-disable-line import/no-unresolved
+import 'draft-js-inline-toolbar-plugin/lib/plugin.css' // eslint-disable-line import/no-unresolved
+import editorStyles from './editorStyles.css'
 // import buttonStyles from './buttonStyles.css';
 // import toolbarStyles from './toolbarStyles.css';
-import 'draft-js-emoji-plugin/lib/plugin.css'; // eslint-disable-line import/no-unresolved
 
-const hashtagPlugin = createHashtagPlugin();
-const linkifyPlugin = createLinkifyPlugin();
+const hashtagPlugin = createHashtagPlugin()
+const linkifyPlugin = createLinkifyPlugin()
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   // theme: { buttonStyles: buttonStyles, toolbarStyles: toolbarStyles },
@@ -48,43 +55,68 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     UnorderedListButton,
     OrderedListButton,
     BlockquoteButton,
-    CodeBlockButton
-  ]
-});
-const { InlineToolbar } = inlineToolbarPlugin;
+    CodeBlockButton,
+  ],
+})
+const { InlineToolbar } = inlineToolbarPlugin
 
 const emojiPlugin = createEmojiPlugin({
-  allowImageCache: true
-});
-const { EmojiSuggestions } = emojiPlugin;
+  allowImageCache: true,
+})
+const { EmojiSuggestions } = emojiPlugin
 
-const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
+const markdownShortcutsPlugin = createMarkdownShortcutsPlugin()
 
 const plugins = [
   hashtagPlugin,
   linkifyPlugin,
   inlineToolbarPlugin,
   markdownShortcutsPlugin,
-  emojiPlugin
-];
+  emojiPlugin,
+]
+
+const { hasCommandModifier } = KeyBindingUtil
 
 const text =
-  'In this editor a toolbar shows up once you select part of the text …';
+  'In this editor a toolbar shows up once you select part of the text …'
 
-class MediumEditor extends Component {
+function myKeyBindingFn(e) {
+  if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
+    return 'myeditor-save'
+  }
+  return getDefaultKeyBinding(e)
+}
+
+export class MediumEditor extends Component {
   state = {
-    editorState: createEditorStateWithText(text)
-  };
+    editorState: createEditorStateWithText(text),
+  }
+
+  constructor(props) {
+    super(props)
+    this.handleKeyCommand = this.handleKeyCommand.bind(this)
+  }
+
+  handleKeyCommand(command) {
+    if (command === 'myeditor-save') {
+      // Perform a request to save your contents, set
+      // a new `editorState`, etc.
+      this.props.onSave('SAVING')
+
+      return 'handled'
+    }
+    return 'not-handled'
+  }
 
   onChange = editorState => {
     this.setState({
-      editorState
-    });
-  };
+      editorState,
+    })
+  }
 
   focus = () => {
-    this.editor.focus();
-  };
+    this.editor.focus()
+  }
 
   render() {
     return (
@@ -95,17 +127,27 @@ class MediumEditor extends Component {
             onChange={this.onChange}
             plugins={plugins}
             ref={element => {
-              this.editor = element;
+              this.editor = element
             }}
+            handleKeyCommand={this.handleKeyCommand}
+            keyBindingFn={myKeyBindingFn}
           />
           <InlineToolbar />
           <EmojiSuggestions />
         </div>
       </div>
-    );
+    )
   }
 }
 
-// MediumEditor = connect(undefined, mapDispatchToProps)(MediumEditor);
+MediumEditor.propTypes = {
+  placeholder: PropTypes.string,
+}
 
-export default MediumEditor;
+let mapDispatchToProps = dispatch => {
+  return {
+    onSave: value => dispatch(saving(value)),
+  }
+}
+
+export default connect(undefined, mapDispatchToProps)(MediumEditor)
