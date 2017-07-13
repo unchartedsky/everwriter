@@ -15,6 +15,7 @@ script:
   - yarn flow
   - yarn test
   - yarn build
+  - yarn codecov
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ];
