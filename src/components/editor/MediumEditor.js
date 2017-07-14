@@ -79,7 +79,7 @@ const plugins = [
 
 const {hasCommandModifier} = KeyBindingUtil
 
-const text =
+export const defaultText =
   'In this editor a toolbar shows up once you select part of the text …'
 
 function myKeyBindingFn(e) {
@@ -90,13 +90,14 @@ function myKeyBindingFn(e) {
 }
 
 export class MediumEditor extends Component {
-  state = {
-    editorState: createEditorStateWithText(text),
-  }
+
 
   constructor(props) {
     super(props);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.state = {
+      editorState: props.editorState ? props.editorState : createEditorStateWithText(defaultText),
+    }
   }
 
   handleKeyCommand(command) {

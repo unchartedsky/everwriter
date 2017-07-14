@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import { MediumEditor } from './MediumEditor'
+import { MediumEditor, defaultText } from './MediumEditor'
 import { createEditorStateWithText } from 'draft-js-plugins-editor'
 import { SAVING } from '../../constants/actionTypes'
 
@@ -11,21 +11,26 @@ describe('Editor', function() {
     shallow(<MediumEditor />)
   })
 
-  it('blockquote', () => {
+  it('has the default text', () => {
+    const wrapper = shallow(<MediumEditor />)
+    const text = wrapper.state('editorState').getCurrentContent().getFirstBlock().getText()
+    expect(text).toMatch(defaultText)
+  })
+
+  it('has new text', () => {
     const text = 'Start now'
     var editorState = createEditorStateWithText(text)
-    const wrapper = shallow(<MediumEditor editorState={editorState}/>)
+    const wrapper = shallow(<MediumEditor editorState={editorState} />)
+    const textFound = wrapper.state('editorState').getCurrentContent().getFirstBlock().getText()
+    expect(textFound).toMatch(text)
   })
 
   it('dispatch COMMAND_SAVE when command+s key is pressed', function() {
     var onSave = jest.fn()
 
-    const text = 'Start now'
-    var editorState = createEditorStateWithText(text)
-
     // 1. use `mount` API for Full DOM Rendering
     const wrapper = mount(
-      <MediumEditor editorState={editorState} onSave={onSave} />
+      <MediumEditor onSave={onSave} />
     )
 
     // 2. find a DOM element with '.public-DraftEditor-content' classname
@@ -41,4 +46,5 @@ describe('Editor', function() {
 
     expect(onSave).toBeCalledWith('SAVING')
   })
+
 })
