@@ -35,6 +35,7 @@
     "flow-bin": "^0.49.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.2",
+    "jest-enzyme": "^3.5.3",
     "lint-staged": "^4.0.0",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.5.2",
