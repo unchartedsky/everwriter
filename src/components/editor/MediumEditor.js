@@ -147,10 +147,12 @@ MediumEditor.propTypes = {
   placeholder: PropTypes.string,
 }
 
+const mapStateToProps = ({ editorState }) => ({ editorState });
+
 let mapDispatchToProps = (dispatch) => {
   return {
     onSave: value => dispatch(saving(value)),
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(MediumEditor)
+export default connect(mapStateToProps, mapDispatchToProps)(MediumEditor)
